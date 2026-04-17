@@ -1,0 +1,785 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScienceOne — 加速你的下一个重大发现</title>
+  <meta name="description" content="从想法到突破，AI 陪你走完最后一公里。ScienceOne 覆盖 1.7 亿科技文献、90PB 科学数据、500+ 科研工具，让科研从数周缩短到数小时。">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230071e3' stroke-width='1.8'%3E%3Ccircle cx='12' cy='12' r='1'/%3E%3Cpath d='M20.2 20.2c2.04-2.03.02-7.36-4.5-11.9-4.54-4.52-9.87-6.54-11.9-4.5-2.04 2.03-.02 7.36 4.5 11.9 4.54 4.52 9.87 6.54 11.9 4.5Z'/%3E%3Cpath d='M15.7 15.7c4.52-4.54 6.54-9.87 4.5-11.9-2.03-2.04-7.36-.02-11.9 4.5-4.52 4.54-6.54 9.87-4.5 11.9 2.03 2.04 7.36.02 11.9-4.5Z'/%3E%3C/svg%3E">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;font-size:16px;-webkit-font-smoothing:antialiased}
+    body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;color:#1d1d1f;background:#fff;line-height:1.5;letter-spacing:-0.374px}
+    a{color:inherit;text-decoration:none}
+    ::-webkit-scrollbar{width:8px}
+    ::-webkit-scrollbar-track{background:#f5f5f7}
+    ::-webkit-scrollbar-thumb{background:#c0c0c8;border-radius:4px}
+
+    /* ── Nav ─────────────────────────────────────── */
+    .nav{position:fixed;top:0;left:0;right:0;height:52px;background:rgba(0,0,0,.82);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);z-index:1000;border-bottom:1px solid rgba(255,255,255,.1);display:flex;align-items:center}
+    .nav-inner{max-width:1100px;margin:0 auto;padding:0 24px;width:100%;display:flex;align-items:center;justify-content:space-between}
+    .nav-logo{display:flex;align-items:center;gap:8px;color:#fff;font-size:15px;font-weight:600;letter-spacing:-.2px}
+    .nav-logo svg{width:20px;height:20px;flex-shrink:0}
+    .nav-links{display:flex;align-items:center;gap:6px}
+    .nav-links a{color:rgba(255,255,255,.72);font-size:13px;font-weight:400;padding:5px 12px;border-radius:6px;transition:color .2s,background .2s;white-space:nowrap}
+    .nav-links a:hover{color:#fff;background:rgba(255,255,255,.08)}
+    .nav-links a.active{color:#fff}
+    .nav-cta{background:#0071e3;color:#fff!important;padding:6px 16px!important;border-radius:8px;font-size:13px;font-weight:500!important;margin-left:4px;transition:background .2s}
+    .nav-cta:hover{background:#005bb5}
+    .nav-lang{color:rgba(255,255,255,.55)!important;font-size:12px!important;padding:5px 10px!important;border:1px solid rgba(255,255,255,.18);border-radius:6px;cursor:pointer;background:transparent!important}
+    .nav-lang:hover{border-color:rgba(255,255,255,.4)!important;color:rgba(255,255,255,.85)!important}
+    .nav-mobile{display:none}
+    @media(max-width:900px){
+      .nav-links{display:none}
+      .nav-mobile{display:flex;align-items:center;gap:8px}
+    }
+
+    /* ── Hero ───────────────────────────────────── */
+    .hero{background:#000;color:#fff;padding:128px 24px 88px;text-align:center;min-height:92vh;display:flex;align-items:center;justify-content:center;flex-direction:column}
+    .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:980px;padding:6px 16px;font-size:12px;font-weight:500;color:rgba(255,255,255,.75);letter-spacing:0;margin-bottom:28px}
+    .badge-dot{width:6px;height:6px;background:#34d399;border-radius:50%;animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+    .hero h1{font-size:clamp(44px,7.5vw,80px);font-weight:700;line-height:1.04;letter-spacing:-.032em;color:#fff;max-width:820px;margin-bottom:24px}
+    .hero h1 .blue{color:#6ea9ff}
+    .hero-sub{font-size:clamp(16px,2vw,20px);font-weight:400;color:rgba(255,255,255,.6);max-width:600px;line-height:1.55;margin-bottom:16px}
+    .hero-stats{display:flex;gap:32px;justify-content:center;flex-wrap:wrap;margin-bottom:40px}
+    .hero-stat{text-align:center}
+    .hero-stat-num{font-size:22px;font-weight:700;color:#fff;letter-spacing:-.02em}
+    .hero-stat-label{font-size:12px;color:rgba(255,255,255,.45);margin-top:2px}
+    .hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+    /* ── CTA ────────────────────────────────────── */
+    .cta{display:inline-flex;align-items:center;padding:13px 26px;border-radius:980px;font-size:16px;font-weight:500;cursor:pointer;transition:all .25s;border:none}
+    .cta-blue{background:#0071e3;color:#fff}.cta-blue:hover{background:#005bb5}
+    .cta-outline{background:transparent;color:#2997ff;border:1px solid #2997ff}.cta-outline:hover{background:rgba(41,151,255,.1)}
+    .cta svg{margin-left:8px;width:15px;height:15px;flex-shrink:0}
+    .cta-sm{padding:10px 20px;font-size:14px}
+    .cta-sm svg{width:13px;height:13px}
+
+    /* ── Stats ──────────────────────────────────── */
+    .stats{background:#000;padding:64px 24px}
+    .stats-inner{max-width:1100px;margin:0 auto}
+    .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#2a2a2e;border-radius:12px;overflow:hidden}
+    .stat{background:#111;padding:32px 28px;text-align:center;transition:background .2s}
+    .stat:hover{background:#181818}
+    .stat-num{font-size:clamp(28px,3.5vw,44px);font-weight:700;letter-spacing:-.03em;color:#fff;line-height:1;margin-bottom:6px}
+    .stat-label{font-size:12px;color:rgba(255,255,255,.4);margin-top:4px;line-height:1.3}
+    @media(max-width:768px){
+      .stats-grid{grid-template-columns:repeat(2,1fr)}
+    }
+
+    /* ── Sections ───────────────────────────────── */
+    .section{padding:88px 24px}
+    .section-light{background:#f5f5f7}
+    .section-dark{background:#fff}
+    .container{max-width:980px;margin:0 auto}
+    .container-wide{max-width:1100px;margin:0 auto}
+
+    .eyebrow{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#0071e3;margin-bottom:14px;display:block}
+    .section-title{font-size:clamp(28px,4vw,42px);font-weight:700;line-height:1.1;letter-spacing:-.028px;color:inherit;margin-bottom:16px}
+    .section-sub{font-size:16px;color:rgba(0,0,0,.5);max-width:520px;line-height:1.55}
+    .divider{width:36px;height:3px;background:#0071e3;border-radius:2px;margin:0 auto 44px}
+    .text-center{text-align:center}
+
+    /* ── Workflow ───────────────────────────────── */
+    .workflow-section{background:#000;color:#fff;padding:88px 24px}
+    .workflow-header{text-align:center;margin-bottom:60px}
+    .workflow-header .eyebrow{color:#6ea9ff}
+    .workflow-header .section-title{color:#fff}
+    .workflow-header .section-sub{color:rgba(255,255,255,.5);margin:0 auto}
+    .workflow-header .divider{background:#6ea9ff}
+    .workflow-steps{display:flex;gap:0;max-width:900px;margin:0 auto 56px;position:relative}
+    .workflow-steps::before{content:'';position:absolute;top:22px;left:10%;right:10%;height:1px;background:rgba(255,255,255,.1);z-index:0}
+    .wf-step{flex:1;text-align:center;position:relative;z-index:1}
+    .wf-icon{width:44px;height:44px;border-radius:50%;background:#1a1a1a;border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;color:#6ea9ff;transition:border-color .3s,background .3s}
+    .wf-step:hover .wf-icon{border-color:#6ea9ff;background:rgba(0,113,227,.15)}
+    .wf-icon svg{width:18px;height:18px}
+    .wf-title{font-size:14px;font-weight:600;color:#fff;margin-bottom:6px}
+    .wf-desc{font-size:12px;color:rgba(255,255,255,.4);line-height:1.4;padding:0 8px}
+    .wf-arrow{position:absolute;top:20px;right:-12px;z-index:2;color:rgba(255,255,255,.2);font-size:16px}
+
+    .quote-block{background:#111;border-radius:12px;padding:36px 40px;max-width:700px;margin:0 auto;text-align:center}
+    .quote-block q{display:block;font-size:clamp(16px,2vw,20px);color:rgba(255,255,255,.8);line-height:1.6;font-style:italic;margin-bottom:20px}
+    .quote-block cite{display:block;font-size:13px;color:rgba(255,255,255,.4);font-style:normal}
+    @media(max-width:768px){
+      .workflow-steps{flex-direction:column;gap:24px;align-items:center}
+      .workflow-steps::before{display:none}
+      .wf-arrow{display:none}
+    }
+
+    /* ── Features ───────────────────────────────── */
+    .features-header{text-align:center;margin-bottom:52px}
+    .features-header .divider{margin:0 auto 40px}
+    .features-header p{font-size:16px;color:rgba(0,0,0,.5);margin:0 auto}
+    .feat-group{margin-bottom:64px}
+    .feat-group:last-child{margin-bottom:0}
+    .feat-group-header{display:flex;align-items:center;gap:16px;margin-bottom:28px;padding-bottom:16px;border-bottom:1px solid rgba(0,0,0,.08)}
+    .feat-group-num{font-size:11px;font-weight:700;color:#fff;background:#0071e3;padding:3px 10px;border-radius:980px;letter-spacing:.05em;flex-shrink:0}
+    .feat-group-title{font-size:18px;font-weight:600;color:#1d1d1f;letter-spacing:-.01px}
+    .feat-group-stage{font-size:12px;color:rgba(0,0,0,.4);margin-left:auto;white-space:nowrap}
+    .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .feat-card{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:24px 20px 20px;transition:transform .25s,box-shadow .25s,border-color .25s}
+    .feat-card:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(0,0,0,.1);border-color:rgba(0,113,227,.25)}
+    .feat-icon{width:38px;height:38px;background:#f5f5f7;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;color:#0071e3}
+    .feat-icon svg{width:17px;height:17px}
+    .feat-title{font-size:16px;font-weight:600;color:#1d1d1f;margin-bottom:8px;letter-spacing:-.01px}
+    .feat-desc{font-size:13px;line-height:1.55;color:rgba(0,0,0,.5)}
+    .feat-target{font-size:11px;color:rgba(0,0,0,.35);margin-top:10px;padding-top:10px;border-top:1px solid rgba(0,0,0,.06)}
+    @media(max-width:900px){.features-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:600px){.features-grid{grid-template-columns:1fr}}
+
+    /* ── Cases ─────────────────────────────────── */
+    .cases-header{text-align:center;margin-bottom:52px}
+    .cases-header .divider{margin:0 auto 40px}
+    .cases-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .case-card{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:28px 24px;transition:transform .25s,box-shadow .25s}
+    .case-card:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(0,0,0,.08)}
+    .case-type{font-size:11px;font-weight:600;color:#0071e3;letter-spacing:.05em;text-transform:uppercase;margin-bottom:10px}
+    .case-title{font-size:16px;font-weight:600;color:#1d1d1f;margin-bottom:8px;letter-spacing:-.01px;line-height:1.3}
+    .case-desc{font-size:13px;line-height:1.55;color:rgba(0,0,0,.5);margin-bottom:14px}
+    .case-result{display:flex;align-items:center;gap:8px;padding:10px 14px;background:#f5f5f7;border-radius:8px}
+    .case-result-icon{color:#0071e3;flex-shrink:0}
+    .case-result-icon svg{width:14px;height:14px}
+    .case-result-text{font-size:12px;color:#1d1d1f;font-weight:500}
+    @media(max-width:768px){.cases-grid{grid-template-columns:1fr}}
+
+    /* ── Performance ────────────────────────────── */
+    .perf-section{background:#f5f5f7;padding:88px 24px}
+    .perf-header{text-align:center;margin-bottom:52px}
+    .perf-header .divider{margin:0 auto 40px}
+    .perf-header p{font-size:16px;color:rgba(0,0,0,.5);margin:0 auto}
+    .perf-table{max-width:800px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 16px rgba(0,0,0,.06)}
+    .perf-thead{background:#f0f0f2}
+    .perf-tr{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;align-items:center}
+    .perf-thead .perf-tr{border-bottom:1px solid rgba(0,0,0,.08)}
+    .perf-th{padding:14px 20px;font-size:11px;font-weight:600;color:rgba(0,0,0,.4);letter-spacing:.06em;text-transform:uppercase;text-align:center}
+    .perf-th:first-child{text-align:left}
+    .perf-tbody .perf-tr{border-bottom:1px solid rgba(0,0,0,.05);transition:background .15s}
+    .perf-tbody .perf-tr:last-child{border-bottom:none}
+    .perf-tbody .perf-tr:hover{background:#fafafa}
+    .perf-td{padding:16px 20px;font-size:14px;color:#1d1d1f;text-align:center}
+    .perf-td:first-child{text-align:left;font-weight:500}
+    .perf-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:980px;font-size:12px;font-weight:600}
+    .perf-badge-green{background:rgba(0,113,227,.1);color:#0071e3}
+    .perf-footnote{text-align:center;font-size:12px;color:rgba(0,0,0,.35);margin-top:20px;letter-spacing:0}
+    @media(max-width:600px){
+      .perf-tr{grid-template-columns:1fr 1fr}
+      .perf-th:nth-child(3),.perf-th:nth-child(4),.perf-td:nth-child(3),.perf-td:nth-child(4){display:none}
+    }
+
+    /* ── Ecosystem ──────────────────────────────── */
+    .eco-section{padding:88px 24px}
+    .eco-header{text-align:center;margin-bottom:52px}
+    .eco-header .divider{margin:0 auto 40px}
+    .eco-header p{font-size:16px;color:rgba(0,0,0,.5);margin:0 auto}
+    .eco-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:900px;margin:0 auto 40px}
+    .eco-card{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:28px 24px;text-align:center;transition:transform .25s,box-shadow .25s}
+    .eco-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.08)}
+    .eco-card-icon{font-size:32px;margin-bottom:14px;display:block}
+    .eco-card-title{font-size:15px;font-weight:600;color:#1d1d1f;margin-bottom:8px}
+    .eco-card-desc{font-size:13px;color:rgba(0,0,0,.45);line-height:1.5}
+    .eco-ways{text-align:center;max-width:600px;margin:0 auto 32px}
+    .eco-ways-title{font-size:13px;font-weight:600;color:#1d1d1f;margin-bottom:12px;letter-spacing:.02em}
+    .eco-ways-list{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+    .eco-way-tag{font-size:12px;color:rgba(0,0,0,.5);background:#f0f0f2;padding:4px 14px;border-radius:980px}
+    .eco-cta-box{text-align:center;background:rgba(0,113,227,.05);border:1px solid rgba(0,113,227,.14);border-radius:12px;padding:28px 32px;max-width:440px;margin:0 auto}
+    .eco-cta-box p{font-size:14px;color:rgba(0,0,0,.5);margin-bottom:16px}
+    @media(max-width:768px){.eco-grid{grid-template-columns:1fr}}
+
+    /* ── Pricing ───────────────────────────────── */
+    .pricing-section{background:#f5f5f7;padding:88px 24px}
+    .pricing-header{text-align:center;margin-bottom:52px}
+    .pricing-header .divider{margin:0 auto 40px}
+    .pricing-header p{font-size:16px;color:rgba(0,0,0,.5);margin:0 auto}
+    .pricing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;max-width:1000px;margin:0 auto}
+    .price-card{background:#fff;border-radius:12px;padding:28px 22px;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}
+    .price-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.1)}
+    .price-card.featured{border:2px solid #0071e3;position:relative}
+    .price-card.featured .price-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#0071e3;color:#fff;font-size:11px;font-weight:600;padding:3px 14px;border-radius:980px;white-space:nowrap}
+    .price-name{font-size:15px;font-weight:600;color:#1d1d1f;margin-bottom:4px}
+    .price-tagline{font-size:12px;color:rgba(0,0,0,.4);margin-bottom:20px}
+    .price-amount{font-size:clamp(26px,3vw,36px);font-weight:700;color:#1d1d1f;letter-spacing:-.03em;margin-bottom:4px}
+    .price-amount span{font-size:14px;font-weight:400;color:rgba(0,0,0,.4)}
+    .price-period{font-size:12px;color:rgba(0,0,0,.35);margin-bottom:20px}
+    .price-divider{height:1px;background:rgba(0,0,0,.08);margin-bottom:18px}
+    .price-features{list-style:none;flex:1}
+    .price-features li{font-size:13px;color:rgba(0,0,0,.55);padding:5px 0;display:flex;align-items:flex-start;gap:8px}
+    .price-features li::before{content:'✓';color:#0071e3;font-weight:700;flex-shrink:0;margin-top:1px;font-size:11px}
+    .price-card .cta{margin-top:20px;justify-content:center}
+    @media(max-width:900px){.pricing-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:500px){.pricing-grid{grid-template-columns:1fr}}
+
+    /* ── Footer ────────────────────────────────── */
+    .footer{background:#000;color:#fff;padding:80px 24px 40px}
+    .footer-inner{max-width:980px;margin:0 auto}
+    .footer-cta{text-align:center;margin-bottom:56px}
+    .footer-cta h2{font-size:clamp(28px,4vw,40px);font-weight:700;letter-spacing:-.028px;color:#fff;margin-bottom:14px}
+    .footer-cta p{font-size:16px;color:rgba(255,255,255,.5);margin-bottom:32px}
+    .footer-links{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:28px}
+    .footer-links a{font-size:13px;color:rgba(255,255,255,.5);padding:4px 12px;border-radius:6px;transition:color .2s,background .2s}
+    .footer-links a:hover{color:#fff;background:rgba(255,255,255,.08)}
+    .footer-border{border-top:1px solid rgba(255,255,255,.1);padding-top:28px;display:flex;flex-direction:column;align-items:center;gap:16px}
+    .footer-brand{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600;color:#fff}
+    .footer-brand svg{width:18px;height:18px}
+    .footer-copy{font-size:12px;color:rgba(255,255,255,.3)}
+
+    /* ── Anim ───────────────────────────────────── */
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    .fade-up{animation:fadeUp .7s ease forwards}
+    .delay-1{animation-delay:.1s;opacity:0}
+    .delay-2{animation-delay:.2s;opacity:0}
+    .delay-3{animation-delay:.3s;opacity:0}
+
+    @media(max-width:768px){
+      .section{padding:64px 20px}
+      .hero{padding:112px 20px 72px}
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="1"/>
+        <path d="M20.2 20.2c2.04-2.03.02-7.36-4.5-11.9-4.54-4.52-9.87-6.54-11.9-4.5-2.04 2.03-.02 7.36 4.5 11.9 4.54 4.52 9.87 6.54 11.9 4.5Z"/>
+        <path d="M15.7 15.7c4.52-4.54 6.54-9.87 4.5-11.9-2.03-2.04-7.36-.02-11.9 4.5-4.52 4.54-6.54 9.87-4.5 11.9 2.03 2.04 7.36.02 11.9-4.5Z"/>
+      </svg>
+      ScienceOne
+    </div>
+    <div class="nav-links">
+      <a href="#features">功能</a>
+      <a href="#cases">案例</a>
+      <a href="#ecosystem">生态</a>
+      <a href="#pricing">定价</a>
+      <a href="#">开放平台</a>
+      <a href="#" class="nav-cta">开始体验</a>
+      <a href="#" class="nav-lang">中 / EN</a>
+    </div>
+    <div class="nav-mobile">
+      <a href="#" class="nav-cta" style="font-size:13px;padding:7px 14px!important">开始体验</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-eyebrow fade-up">
+    <span class="badge-dot"></span>
+    你的下一个重大发现，从这里开始
+  </div>
+  <h1 class="fade-up delay-1">
+    加速你的下一个<br><span class="blue">重大发现</span>
+  </h1>
+  <p class="hero-sub fade-up delay-2">
+    从想法到突破，AI 陪你走完最后一公里。<br>
+    覆盖 1.7 亿科技文献、90PB 科学数据、500+ 科研工具，让科研从数周缩短到数小时。
+  </p>
+  <div class="hero-stats fade-up delay-2">
+    <div class="hero-stat">
+      <div class="hero-stat-num">1.7 亿</div>
+      <div class="hero-stat-label">科技文献</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">90PB</div>
+      <div class="hero-stat-label">科学数据</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">500+</div>
+      <div class="hero-stat-label">科研工具</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">7 大</div>
+      <div class="hero-stat-label">学科领域</div>
+    </div>
+  </div>
+  <div class="hero-actions fade-up delay-3">
+    <a href="#features" class="cta cta-blue">
+      ▸ 立即开始你的研究
+    </a>
+    <a href="#workflow-section" class="cta cta-outline">
+      观看平台演示
+    </a>
+  </div>
+</section>
+
+<!-- Stats Bar -->
+<section class="stats">
+  <div class="stats-inner">
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="stat-num">1.7 亿</div>
+        <div class="stat-label">科技论文，覆盖全球核心期刊</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">1 亿</div>
+        <div class="stat-label">发明专利，支撑创新研究</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">1800 万</div>
+        <div class="stat-label">全球科研项目（40+ 国家）</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">15 万</div>
+        <div class="stat-label">企业指标，追踪产业动态</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Workflow Section -->
+<section id="workflow-section" class="workflow-section">
+  <div class="container-wide">
+    <div class="workflow-header">
+      <span class="eyebrow">科研范式</span>
+      <h2 class="section-title">从想法到发现，AI 全程相伴</h2>
+      <div class="divider"></div>
+      <p class="section-sub" style="text-align:center;margin:0 auto">用用户旅程可视化展示平台价值</p>
+    </div>
+
+    <div class="workflow-steps">
+      <div class="wf-step">
+        <div classwf-icon>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </div>
+        <div class="wf-title">文献检索</div>
+        <div class="wf-desc">智能推荐相关文献</div>
+      </div>
+      <div class="wf-arrow">→</div>
+      <div class="wf-step">
+        <div class="wf-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        </div>
+        <div class="wf-title">综述写作</div>
+        <div class="wf-desc">AI 辅助写作</div>
+      </div>
+      <div class="wf-arrow">→</div>
+      <div class="wf-step">
+        <div class="wf-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2"/><path d="M8.5 2h7"/><path d="M7 16.5h10"/></svg>
+        </div>
+        <div class="wf-title">实验设计</div>
+        <div class="wf-desc">数据分析工具</div>
+      </div>
+      <div class="wf-arrow">→</div>
+      <div class="wf-step">
+        <div class="wf-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div class="wf-title">成果产出</div>
+        <div class="wf-desc">成果可视化</div>
+      </div>
+    </div>
+
+    <div class="quote-block">
+      <q>"以前写综述需要阅读 200+ 篇文献，耗时 3 周。<br>现在 ScienceOne 帮我梳理知识图谱，2 天完成初稿。"</q>
+      <cite>— 某高校教授 · 物理学领域</cite>
+    </div>
+  </div>
+</section>
+
+<!-- Performance Metrics -->
+<section class="perf-section">
+  <div class="container">
+    <div class="perf-header">
+      <span class="eyebrow">性能指标</span>
+      <h2 class="section-title">效果看得见，时间省下来</h2>
+      <div class="divider"></div>
+      <p class="section-sub" style="text-align:center;margin:0 auto">与行业基准 / 竞品对比，用具体数字证明平台价值</p>
+    </div>
+    <div class="perf-table">
+      <div class="perf-thead">
+        <div class="perf-tr">
+          <div class="perf-th">场景</div>
+          <div class="perf-th">优化前</div>
+          <div class="perf-th">优化后</div>
+          <div class="perf-th">提升幅度</div>
+        </div>
+      </div>
+      <div class="perf-tbody">
+        <div class="perf-tr">
+          <div class="perf-td">文献研究覆盖率</div>
+          <div class="perf-td">基准</div>
+          <div class="perf-td">—</div>
+          <div class="perf-td"><span class="perf-badge perf-badge-green">+59.3%</span></div>
+        </div>
+        <div class="perf-tr">
+          <div class="perf-td">综述写作时间</div>
+          <div class="perf-td">6 小时</div>
+          <div class="perf-td">2.5 小时</div>
+          <div class="perf-td"><span class="perf-badge perf-badge-green">↓ 58%</span></div>
+        </div>
+        <div class="perf-tr">
+          <div class="perf-td">选题评估周期</div>
+          <div class="perf-td">周级</div>
+          <div class="perf-td">小时级</div>
+          <div class="perf-td"><span class="perf-badge perf-badge-green">↓ 87.5%</span></div>
+        </div>
+        <div class="perf-tr">
+          <div class="perf-td">仪器识别准确率</div>
+          <div class="perf-td">—</div>
+          <div class="perf-td">&gt; 90%</div>
+          <div class="perf-td"><span class="perf-badge perf-badge-green">行业领先</span></div>
+        </div>
+        <div class="perf-tr">
+          <div class="perf-td">论文错误检测率</div>
+          <div class="perf-td">Gemini 2.5 Pro 80.6%</div>
+          <div class="perf-td">—</div>
+          <div class="perf-td"><span class="perf-badge perf-badge-green">+10.2%</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="perf-footnote">所有数据均基于真实用户场景测试，结果可能因使用场景而异</p>
+  </div>
+</section>
+
+<!-- Features -->
+<section id="features" class="section">
+  <div class="container">
+    <div class="features-header">
+      <span class="eyebrow">功能模块</span>
+      <h2 class="section-title">覆盖科研全旅程</h2>
+      <div class="divider"></div>
+      <p style="font-size:16px;color:rgba(0,0,0,.5);max-width:520px;margin:0 auto">按用户旅程排列，从探索到产出，每一步都由 AI 深度增强</p>
+    </div>
+
+    <!-- ① 发现与选题 -->
+    <div class="feat-group">
+      <div class="feat-group-header">
+        <span class="feat-group-num">①</span>
+        <span class="feat-group-title">发现与选题</span>
+        <span class="feat-group-stage">科研探索阶段</span>
+      </div>
+      <div class="features-grid">
+        <div class="feat-card">
+          <div class="feat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/></svg>
+          </div>
+          <div class="feat-title">科研资讯</div>
+          <div class="feat-desc">聚合国内外 100+ 学术信息源，AI 自动摘要 + 来源追溯，告别逐篇手动查阅。</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </div>
+          <div class="feat-title">选题研判</div>
+          <div class="feat-desc">基于海量文献和最新科研动态，AI 评估选题新颖性和研究空白，可视化呈现「研究热力图」。将选题评估周期从周级压缩到小时级，判断准确率 &gt;80%。</div>
+          <div class="feat-target">目标用户：学生开题、导师找方向</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ② 文献与综述 -->
+    <div class="feat-group">
+      <div class="feat-group-header">
+        <span class="feat-group-num">②</span>
+        <span class="feat-group-title">文献与综述</span>
+        <span class="feat-group-stage">研究阶段</span>
+      </div>
+      <div class="features-grid">
+        <div class="feat-card">
+          <div class="feat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          </div>
+          <div class="feat-title">学术综述</div>
+          <div class="feat-desc">输入研究问题，AI 自动生成万字级完整综述，支持多格式导出。超长上下文 + 多源融合，文献研究覆盖率提升 59.3%，综述写作时间从 6 小时缩短到 2.5 小时。</div>
+          <div class="feat-target">目标用户：所有人</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>
+          </div>
+          <div class="feat-title">个人文献中心</div>
+          <div class="feat-desc">自建文献库，支持批量上传；AI 对话式精读，引文网络可视化、团队协作批注。从阅读到对话，深度融合。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ③ 工具与数据 -->
+    <div class="feat-group">
+      <div class="feat-group-header">
+        <span class="feat-group-num">③</span>
+        <span class="feat-group-title">工具与数据</span>
+        <span class="feat-group-stage">实验阶段</span>
+      </div>
+      <div class="features-grid">
+        <div class="feat-card">
+          <div class="feat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          </div>
+          <div class="feat-title">科学工具</div>
+          <div class="feat-desc">工具广场汇聚 500+ 科研工具（PDE-Agent、科学计算器等），按学科和场景分类，一键直达使用。即装即用。</div>
+          <div class="feat-target">目标用户：需要专业工具的研究者</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>
+          </div>
+          <div class="feat-title">科学数据库</div>
+          <div class="feat-desc">全球权威科学数据库汇聚（材料 / 生命 / 地球 / 空间等），294 个专业数据集，一键跳转官网，支持调用链接分享。</div>
+          <div class="feat-target">目标用户：需要专业工具的研究者</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ④ 验证与实验 -->
+    <div class="feat-group">
+      <div class="feat-group-header">
+        <span class="feat-group-num">④</span>
+        <span class="feat-group-title">验证与实验</span>
+        <span class="feat-group-stage">实验闭环</span>
+      </div>
+      <div class="features-grid">
+        <div class="feat-card">
+          <div class="feat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2"/><path d="M8.5 2h7"/><path d="M7 16.5h10"/></svg>
+          </div>
+          <div class="feat-title">科学实验站</div>
+          <div class="feat-desc">专业科学计算环境，支持物理 / 化学 / 生物模拟与验证。理论 → 验证闭环，可重复使用的实验流程。</div>
+          <div class="feat-target">目标用户：需要实验验证的研究者</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ⑤ 成果与产出 -->
+    <div class="feat-group">
+      <div class="feat-group-header">
+        <span class="feat-group-num">⑤</span>
+        <span class="feat-group-title">成果与产出</span>
+        <span class="feat-group-stage">成果阶段</span>
+      </div>
+      <div class="features-grid">
+        <div class="feat-card">
+          <div class="feat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div class="feat-title">学术审稿</div>
+          <div class="feat-desc">AI 辅助评审论文，涵盖研究合理性、创新性、局限性。将审稿周期从月级压缩到分钟级，论文错误检测率较 Gemini 2.5 Pro 提升 10.2%。</div>
+          <div class="feat-target">目标用户：投稿作者、汇报人</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          </div>
+          <div class="feat-title">科研配图</div>
+          <div class="feat-desc">基于自然语言生成学术配图（分子结构图、实验流程图等），科研场景深度适配。</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <div class="feat-title">PPT / 海报</div>
+          <div class="feat-desc">上传文献，AI 自动解析 → 生成大纲 → 逐页生成内容，一站式完成学术汇报材料。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Cases -->
+<section id="cases" class="section section-light">
+  <div class="container">
+    <div class="cases-header">
+      <span class="eyebrow">应用案例</span>
+      <h2 class="section-title">他们的发现，从 ScienceOne 开始</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="cases-grid">
+      <div class="case-card">
+        <div class="case-type">大学教授</div>
+        <h3 class="case-title">深度研究模式</h3>
+        <p class="case-desc">使用深度研究模式，系统梳理领域文献，3 天完成万字级完整综述。</p>
+        <div class="case-result">
+          <div class="case-result-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <span class="case-result-text">3 天完成领域综述（原来需要 3 周）</span>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-type">研究团队</div>
+        <h3 class="case-title">科学工具</h3>
+        <p class="case-desc">使用 ScienceOne 科学工具进行复杂计算，批量处理实验数据，大幅提升效率。</p>
+        <div class="case-result">
+          <div class="case-result-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <span class="case-result-text">计算时间从周级压缩到小时级</span>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-type">博士生</div>
+        <h3 class="case-title">选题研判</h3>
+        <p class="case-desc">通过平台选题研判功能快速锁定研究空白，借助 AI 评估选题新颖性，确定创新方向。</p>
+        <div class="case-result">
+          <div class="case-result-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <span class="case-result-text">快速锁定研究空白，确定创新方向</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Ecosystem -->
+<section id="ecosystem" class="eco-section">
+  <div class="container">
+    <div class="eco-header">
+      <span class="eyebrow">生态联盟</span>
+      <h2 class="section-title">与 ScienceOne 同行</h2>
+      <div class="divider"></div>
+      <p style="font-size:16px;color:rgba(0,0,0,.5);max-width:520px;margin:0 auto">与高校、科研机构、企业共建，推动科研新范式</p>
+    </div>
+    <div class="eco-grid">
+      <div class="eco-card">
+        <span class="eco-card-icon">🏛️</span>
+        <div class="eco-card-title">某 985 高校</div>
+        <div class="eco-card-desc">共建 AI 科研平台</div>
+      </div>
+      <div class="eco-card">
+        <span class="eco-card-icon">🔬</span>
+        <div class="eco-card-title">国家重点实验室</div>
+        <div class="eco-card-desc">联合研究项目</div>
+      </div>
+      <div class="eco-card">
+        <span class="eco-card-icon">🏢</span>
+        <div class="eco-card-title">头部科技企业</div>
+        <div class="eco-card-desc">定制化科研解决方案</div>
+      </div>
+    </div>
+    <div class="eco-ways">
+      <div class="eco-ways-title">合作方式</div>
+      <div class="eco-ways-list">
+        <span class="eco-way-tag">模型共建</span>
+        <span class="eco-way-tag">定制部署</span>
+        <span class="eco-way-tag">API 开放</span>
+        <span class="eco-way-tag">联合研究</span>
+      </div>
+    </div>
+    <div class="eco-cta-box">
+      <p>机构用户联系商务合作</p>
+      <a href="#" class="cta cta-outline cta-sm">
+        联系我们
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section id="pricing" class="pricing-section">
+  <div class="container">
+    <div class="pricing-header">
+      <span class="eyebrow">定价策略</span>
+      <h2 class="section-title">选择适合你的科研伙伴</h2>
+      <div class="divider"></div>
+      <p style="font-size:16px;color:rgba(0,0,0,.5);max-width:520px;margin:0 auto">突出「对你有什么用」而非功能罗列</p>
+    </div>
+    <div class="pricing-grid">
+      <!-- Basic -->
+      <div class="price-card">
+        <div class="price-name">Basic</div>
+        <div class="price-tagline">尝鲜体验</div>
+        <div class="price-amount">免费</div>
+        <div class="price-period">&nbsp;</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>10 次深度研究</li>
+          <li>40 次 PPT 生成</li>
+          <li>基础文献检索</li>
+          <li>社区支持</li>
+        </ul>
+        <a href="#" class="cta cta-outline cta-sm">免费开始</a>
+      </div>
+      <!-- Plus -->
+      <div class="price-card">
+        <div class="price-name">Plus</div>
+        <div class="price-tagline">在读学生</div>
+        <div class="price-amount">¥99 <span>/月</span></div>
+        <div class="price-period">按年付 ¥79/月</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>1 次综述生成</li>
+          <li>65 次深度研究</li>
+          <li>250 次 PPT</li>
+          <li>个人文献中心</li>
+          <li>邮件支持</li>
+        </ul>
+        <a href="#" class="cta cta-blue cta-sm">立即订阅</a>
+      </div>
+      <!-- Pro (featured) -->
+      <div class="price-card featured">
+        <div class="price-badge">最受欢迎</div>
+        <div class="price-name">Pro</div>
+        <div class="price-tagline">科研主力</div>
+        <div class="price-amount">¥499 <span>/月</span></div>
+        <div class="price-period">按年付 ¥399/月</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>8 次综述生成</li>
+          <li>315 次深度研究</li>
+          <li>1250 次 PPT</li>
+          <li>团队协作批注</li>
+          <li>优先客服支持</li>
+        </ul>
+        <a href="#" class="cta cta-blue cta-sm">立即升级</a>
+      </div>
+      <!-- Enterprise -->
+      <div class="price-card">
+        <div class="price-name">企业版</div>
+        <div class="price-tagline">机构团队</div>
+        <div class="price-amount">定制</div>
+        <div class="price-period">&nbsp;</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>专属团队方案</li>
+          <li>API 无限调用</li>
+          <li>私有化部署</li>
+          <li>专属客户成功经理</li>
+        </ul>
+        <a href="#" class="cta cta-outline cta-sm">联系销售</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-cta">
+      <h2>准备好探索了吗？</h2>
+      <p>从想法到突破，AI 陪你走完最后一公里</p>
+      <div class="footer-links">
+        <a href="#features" class="cta cta-blue" style="border-radius:8px">
+          ▸ 免费开始使用
+        </a>
+        <a href="#" class="cta cta-outline" style="border-radius:8px;border-color:rgba(255,255,255,.3);color:rgba(255,255,255,.7)">
+          查看完整功能
+        </a>
+      </div>
+    </div>
+    <div class="footer-border">
+      <div class="footer-brand">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="1"/>
+          <path d="M20.2 20.2c2.04-2.03.02-7.36-4.5-11.9-4.54-4.52-9.87-6.54-11.9-4.5-2.04 2.03-.02 7.36 4.5 11.9 4.54 4.52 9.87 6.54 11.9 4.5Z"/>
+          <path d="M15.7 15.7c4.52-4.54 6.54-9.87 4.5-11.9-2.03-2.04-7.36-.02-11.9 4.5-4.52 4.54-6.54 9.87-4.5 11.9 2.03 2.04 7.36.02 11.9-4.5Z"/>
+        </svg>
+        ScienceOne
+      </div>
+      <div class="footer-links" style="margin-bottom:0">
+        <a href="#">关于我们</a>
+        <a href="#">隐私政策</a>
+        <a href="#">服务条款</a>
+        <a href="#">联系我们</a>
+      </div>
+      <div class="footer-copy">© 2025 ScienceOne. All rights reserved.</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
